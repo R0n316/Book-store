@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" th:href="@{/static/styles/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/bookInfoStyle.css}">
+</head>
+<body>
+<header>
+
+    <a th:href="@{/books}"><img th:src="@{/static/images/logo.svg}" alt="logotype"></a>
+    <div class="dropdown">
+        <div class="catalog-button" onclick="myFunction()">
+            <span class="catalog-button-text">Каталог</span>
+            <img class="catalog-image" th:src="@{/static/images/catalogButtonDetails.svg}" alt="details">
+        </div>
+        <div class="menu" id="my-menu">
+            <div>Лекарственные препараты и бады</div>
+            <div>Медицинская техника</div>
+            <div>Медицинские изделия</div>
+            <div>Гигиена и уход</div>
+            <div>Красота и здоровье</div>
+            <div>Мать и дитя</div>
+            <div>Детское питание</div>
+            <div>Ортопедические изделия</div>
+            <div>Канцелярские товары</div>
+            <div>Одежда, обувь аксессуары</div>
+            <div>Оптика</div>
+            <div>Продукты питания</div>
+            <div>Спортивные товары</div>
+            <div>Товары для активного отдыха</div>
+        </div>
+    </div>
+    <form method="GET">
+        <label>
+            <input type="text" placeholder="Поиск" class="search">
+        </label>
+    </form>
+    <div class="nav-button">
+        <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites icon">
+        Избранное
+    </div>
+    <div class="nav-button">
+        <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites icon">
+        Корзина
+    </div>
+    <a th:if="${person==null}" th:href="@{/auth/login}">
+        <button class="login-button">Войти</button>
+    </a>
+    <form th:if="${person!=null}" method="POST" th:action="@{/auth/logout}">
+        <button class="login-button" type="submit">
+            Выйти
+        </button>
+    </form>
+</header>
+<div class="container1" style="padding-top: 85px">
+    <div class="categories">
+        <div class="category">
+            Фэнтези
+        </div>
+        <div class="category">
+            Детективы
+        </div>
+        <div class="category">
+            Боевики
+        </div>
+        <div class="category">
+            Проза
+        </div>
+        <div class="category">
+            Бизнес
+        </div>
+        <div class="category">
+            Эзотерика
+        </div>
+        <div class="category">
+            Психология
+        </div>
+        <div class="category">
+            Мода
+        </div>
+        <div class="category">
+            Кулинария
+        </div>
+        <div class="category">
+            Биография
+        </div>
+        <div class="category">
+            Хобби
+        </div>
+    </div>
+    <div class="container-info1">
+        <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
+        <div class="main-book-info">
+            <div class="rating-container">
+                <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                <span class="rate" th:text="${book.rating}">book rating</span>
+                <span class="reviews"><ins>15 отзывов</ins></span>
+            </div>
+            <span class="book-name" th:text="${book.name}">book name</span>
+            <span class="book-author"><ins th:text="${book.author}">book author</ins></span>
+            <div class="book-attribute">
+                <span class="attribute-name">ID товара</span>
+                <span class="attribute-value" th:text="${book.bookId}">book id</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Издательство</span>
+                <span class="attribute-value" th:text="${book.publisher}">book publisher</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Серия</span>
+                <span class="attribute-value" th:text="${book.series}">book series</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Год издания</span>
+                <span class="attribute-value" th:text="${book.yearOfPublishing}">book year of publishing</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">ISBN</span>
+                <span class="attribute-value" th:text="${book.isbn}">book isbn</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Количество страниц</span>
+                <span class="attribute-value" th:text="${book.numberOfPages}">book number of pages</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Размер</span>
+                <span class="attribute-value" th:text="${book.size}">book size</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Тип обложки</span>
+                <span class="attribute-value" th:text="${book.coverType}">book cover type</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Тираж</span>
+                <span class="attribute-value" th:text="${book.circulation}">book circulation</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Вес, г</span>
+                <span class="attribute-value" th:text="${book.weight}">book weight</span>
+            </div>
+            <hr class="attribute-hr">
+            <div class="book-attribute">
+                <span class="attribute-name">Возрастные ограничения</span>
+                <span class="attribute-value" th:text="${book.ageRestrictions} + '+'">book age restrictions</span>
+            </div>
+        </div>
+        <div class="book-details">
+            <div class="book-price-info">
+                <span class="book-price" th:text="${book.price} + ' ₽'">book price</span>
+                <span class="book-points">+ до 96 баллов</span>
+            </div>
+            <div class="book-actions">
+                <button class="buy-button">Купить</button>
+                <div th:if="${person==null}">
+                    <a th:href="@{/auth/login}">
+                        <img class="favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                    </a>
+                </div>
+                <div th:if="${person!=null}">
+                    <img th:if="${!book.favorite}" class="favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                    <img th:if="${book.favorite}" class="marked favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
+                </div>
+            </div>
+            <div class="obtaining-method">
+                <img th:src="@{/static/images/cartIconAlt.svg}" alt="obtaining icon" class="obtaining-method-icon">
+                <div class="obtaining-container">
+                    <span class="obtaining-info">Доставка курьером, 175 ₽</span>
+                    <div class="delivery-details">
+                        <span class="delivery-date">В субботу, 11 февр.</span>
+                        <span class="delivery-options"><ins>Варианты доставки</ins></span>
+                    </div>
+                </div>
+            </div>
+            <div class="obtaining-method">
+                <img th:src="@{/static/images/truckIcon.svg}" alt="obtaining icon" class="obtaining-method-icon">
+                <div class="obtaining-container">
+                    <span class="obtaining-info">В магазины сети, Бесплатно</span>
+                    <div class="delivery-details">
+                        <span class="delivery-date">Завтра</span>
+                        <span class="delivery-options"><ins>Адреса магазинов</ins></span>
+                    </div>
+                </div>
+            </div>
+            <div class="obtaining-method">
+                <img th:src="@{/static/images/packageIcon.svg}" alt="obtaining icon" class="obtaining-method-icon">
+                <div class="obtaining-container">
+                    <span class="obtaining-info">В пункты выдачи, 110 ₽</span>
+                    <div class="delivery-details">
+                        <span class="delivery-date">Завтра</span>
+                        <span class="delivery-options"><ins>Пункты выдачи</ins></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="book-description">
+        Для правильных решений надо освоить три метода: как съесть слона, как сожрать лягушку и когда следует есть брокколи. Про слона и лягушку вы наверняка слышали: слона надо есть медленно и по кусочкам, а лягушку — глотать первым делом, с утра. Идея с брокколи не так известна, но концепция такая: брокколи полезна для долголетия. Но для того чтобы дольше жить, мало это знать. Надо ее еще и регулярно есть.
+        <br>
+        <br>
+        Почему сила воли работает плохо и зачем избегать тупости? Какие дела стоит сделать прямо сейчас, а какие лучше выкинуть из жизни? Чем привычки лучше целей? Как сделать что-то новое и интересное, не бросив все в самом начале?
+        <br>
+        <br>
+        Как научиться чему угодно и войти в число лучших? Что такое осознанная практика и почему 10 тысяч часов может не хватить?Алексей Марков, кандидат экономических наук, автор знаменитой "Хулиномики”, рок-звезда и отец четверых детей, учит людей думать в своей привычной манере: точно, жестко, с циничными шутками и очень легким языком.
+    </div>
+    <hr>
+    <footer>
+        <img class="logo" th:src="@{/static/images/logo.svg}" alt="logotype">
+        <div class="footer-container">
+            <ul class="footer-ul">
+                <li>Каталог</li>
+                <li>Партнерская программа</li>
+                <li>Подробнее о нас</li>
+                <li>Контакты</li>
+            </ul>
+            <ul class="footer-ul">
+                <li>Остались вопросы? Напишите нам</li>
+                <li>korablik@yandex.ru</li>
+                <li>
+                    <div class="social-logos">
+                        <img th:src="@{/static/images/VKIcon.svg}" alt="VK">
+                        <img th:src="@{/static/images/OKIcon.svg}" alt="OK">
+                        <img th:src="@{/static/images/twitterIcon.svg}" alt="twitter">
+                    </div>
+                </li>
+                <li>
+                    Мы на связи с 9 до 18 часов
+                    <br>
+                    (GMT +03:00)
+                </li>
+            </ul>
+            <ul class="footer-ul">
+                <li>Бесплатный звонок по России</li>
+                <li>8 (988) 545-55-55</li>
+                <li>Мы в социальных сетях</li>
+                <li>
+                    <div class="social-logos">
+                        <img th:src="@{/static/images/VKIcon.svg}" alt="VK">
+                        <img th:src="@{/static/images/OKIcon.svg}" alt="OK">
+                        <img th:src="@{/static/images/twitterIcon.svg}" alt="twitter">
+                        <img th:src="@{/static/images/telegramIcon.svg}" alt="telegram">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<div class="overlay" id="overlay"></div>
+<script th:src="@{/static/scripts/script.js}"></script>
+<script th:src="@{/static/scripts/bookInfoScript.js}"></script>
+<!--TODO проверить добавление в избранное на странице с подробной информацией о книге-->
+</body>
+</html>

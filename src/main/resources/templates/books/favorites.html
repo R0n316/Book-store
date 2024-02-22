@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Избранное</title>
+    <link rel="stylesheet" th:href="@{/static/styles/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/favoritesStyle.css}">
+</head>
+<body>
+<header>
+    <a th:href="@{/books}"><img th:src="@{/static/images/logo.svg}" alt="logotype"></a>
+    <div class="dropdown">
+        <div class="catalog-button" onclick="myFunction()">
+            <span class="catalog-button-text">Каталог</span>
+            <img class="catalog-image" th:src="@{/static/images/catalogButtonDetails.svg}" alt="details">
+        </div>
+        <div class="menu" id="my-menu">
+            <div>Лекарственные препараты и бады</div>
+            <div>Медицинская техника</div>
+            <div>Медицинские изделия</div>
+            <div>Гигиена и уход</div>
+            <div>Красота и здоровье</div>
+            <div>Мать и дитя</div>
+            <div>Детское питание</div>
+            <div>Ортопедические изделия</div>
+            <div>Канцелярские товары</div>
+            <div>Одежда, обувь аксессуары</div>
+            <div>Оптика</div>
+            <div>Продукты питания</div>
+            <div>Спортивные товары</div>
+            <div>Товары для активного отдыха</div>
+        </div>
+    </div>
+    <form method="GET">
+        <label>
+            <input type="text" placeholder="Поиск" class="search">
+        </label>
+    </form>
+    <div class="nav-button">
+        <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites icon">
+        Избранное
+    </div>
+    <div class="nav-button">
+        <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites icon">
+        Корзина
+    </div>
+    <form method="POST" th:action="@{/auth/logout}">
+        <button type="submit" class="login-button">
+            Выйти
+        </button>
+    </form>
+</header>
+<!--TODO реализовать страницу для отображения избранных книг пользователя-->
+<div class="container1" style="padding-top: 85px">
+    <div class="div1">
+        Избранное
+    </div>
+    <div class="book-cards">
+        <div class="book-card" th:each="book:${favoriteBooks}">
+            <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rate" th:text="${book.rating}">book rate</span>
+                    <img th:if="${!book.favorite}" class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                    <img th:if="${book.favorite}" class="marked nav-icon favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
+                </div>
+                <div class="book-info">
+                    <h2 class="book-name" th:text="${book.name}">book name</h2>
+                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
+                </div>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="overlay" id="overlay"></div>
+<script th:src="@{/static/scripts/script.js}"></script>
+<script th:src="@{/static/scripts/favoritesScript.js}"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Philosopher, serif;
+    color: #110C1F;
+}
+
+.container1{
+    padding-left: 340px;
+    padding-right: 340px;
+}
+
+.container-info1{
+    display: flex;
+}
+
+.book-image{
+    width: 295px;
+    height: 466px;
+    border-radius: 5px;
+    margin-right: 21px;
+}
+
+.main-book-info{
+    display: flex;
+    flex-direction: column;
+    width: 504px;
+    margin-right: 20px;
+    margin-bottom: 32px;
+}
+
+.rating-container{
+    margin-bottom: 16px;
+}
+
+.star{
+    margin-right: 4px;
+    font-size: 14px;
+}
+
+.reviews{
+    margin-left: 24px;
+    font-size: 14px;
+}
+
+.book-attribute{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 124px;
+}
+
+.book-name{
+    font-size: 20px;
+    line-height: 22px;
+    margin-bottom: 8px;
+    color: #290247;
+}
+
+.book-author{
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 24px;
+    color: #290247;
+}
+
+.attribute-hr{
+    margin-top: 8px;
+    color: #110C1F;
+    margin-bottom: 8px;
+}
+
+.attribute-name{
+    font-size: 14px;
+}
+
+.attribute-value{
+    font-size: 14px;
+}
+
+.book-details{
+    padding: 32px;
+    width: 336px;
+    height: 280px;
+    border-radius: 5px;
+    box-shadow: 1px 0 27px -5px rgba(31, 26, 45, 0.22);
+    display: flex;
+    flex-direction: column;
+}
+
+.book-price-info{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.book-price{
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.book-points{
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.book-actions{
+    display: flex;
+}
+
+.buy-button{
+    color: white;
+    padding: 14px 120px;
+    background-color: #290247;
+    border: 0;
+    border-radius: 5px;
+    margin-right: 20px;
+    margin-bottom: 28px;
+}
+
+.favorites{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.obtaining-method{
+    display: flex;
+    align-items: start;
+    margin-bottom: 20px;
+}
+
+.obtaining-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.obtaining-method-icon{
+    margin-right: 8px;
+    margin-top: 5px;
+}
+
+.delivery-details{
+    display: flex;
+    font-size: 12px;
+}
+
+.obtaining-info{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.delivery-options{
+    margin-left: 8px;
+}
+
+.book-description{
+    width: 820px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 156%;
+    margin-bottom: 30px;
+}
+
+footer{
+    width: 100%;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-ul{
+    list-style: none;
+}
+
+.footer-ul li{
+    margin-top: 16px;
+    margin-bottom: 16px;
+    line-height: 151.69%;
+}
+
+.social-logos{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.social-logos img{
+    margin-right: 32px;
+}
+.footer-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.logo{
+    width: 105px;
+    height: 40px;
+}

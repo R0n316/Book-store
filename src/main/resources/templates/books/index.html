@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" th:href="@{/static/styles/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/static/styles/headerStyle.css}">
+</head>
+<body>
+<header>
+    <a th:href="@{/books}"><img th:src="@{/static/images/logo.svg}" alt="logotype"></a>
+    <div class="dropdown">
+        <div class="catalog-button" onclick="myFunction()">
+            <span class="catalog-button-text">Каталог</span>
+            <img class="catalog-image" th:src="@{/static/images/catalogButtonDetails.svg}" alt="details">
+        </div>
+        <div class="menu" id="my-menu">
+            <div>Лекарственные препараты и бады</div>
+            <div>Медицинская техника</div>
+            <div>Медицинские изделия</div>
+            <div>Гигиена и уход</div>
+            <div>Красота и здоровье</div>
+            <div>Мать и дитя</div>
+            <div>Детское питание</div>
+            <div>Ортопедические изделия</div>
+            <div>Канцелярские товары</div>
+            <div>Одежда, обувь аксессуары</div>
+            <div>Оптика</div>
+            <div>Продукты питания</div>
+            <div>Спортивные товары</div>
+            <div>Товары для активного отдыха</div>
+        </div>
+    </div>
+    <form method="GET">
+        <label>
+            <input type="text" placeholder="Поиск" class="search">
+        </label>
+    </form>
+    <a th:href="@{/books/favorites}">
+        <div class="nav-button">
+            <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites icon">
+            Избранное
+        </div>
+    </a>
+    <div class="nav-button">
+        <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites icon">
+        Корзина
+    </div>
+    <a th:if="${person==null}" th:href="@{/auth/login}">
+        <button class="login-button">Войти</button>
+    </a>
+    <form th:if="${person!=null}" method="POST" th:action="@{/auth/logout}">
+        <button class="login-button" type="submit">
+            Выйти
+        </button>
+    </form>
+</header>
+<div class="container1" style="padding-top: 85px">
+    <div class="categories">
+        <div class="category">
+            Фэнтези
+        </div>
+        <div class="category">
+            Детективы
+        </div>
+        <div class="category">
+            Боевики
+        </div>
+        <div class="category">
+            Проза
+        </div>
+        <div class="category">
+            Бизнес
+        </div>
+        <div class="category">
+            Эзотерика
+        </div>
+        <div class="category">
+            Психология
+        </div>
+        <div class="category">
+            Мода
+        </div>
+        <div class="category">
+            Кулинария
+        </div>
+        <div class="category">
+            Биография
+        </div>
+        <div class="category">
+            Хобби
+        </div>
+    </div>
+    <div class="banner1">
+        <h1 class="banner1-h1">
+            Читай книги — маркетплейс книжных товаров
+        </h1>
+        <h2 class="banner1-h2">
+            Сравнивайте цены и бронируйте книги в ближайших магазинах!
+        </h2>
+        <a th:if="${person==null}" th:href="@{/auth/login}">
+            <div class="login-div banner1-button">Войти</div>
+        </a>
+    </div>
+    <div class="div1">
+        Популярное
+        <div class="watch-all">
+            Смотреть все
+            <div class="watch-all-button">→</div>
+        </div>
+    </div>
+    <div class="book-cards">
+        <div class="book-card" th:each="book:${books}">
+            <a th:href="@{/books/{bookId}(bookId=${book.bookId})}">
+                <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
+            </a>
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rating" th:text="${book.rating}">book rating</span>
+                    <div th:if="${person==null}">
+                        <a th:href="@{/auth/login}">
+                            <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                        </a>
+                    </div>
+                    <div th:if="${person!=null}">
+                        <img th:if="${!book.favorite}" class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                        <img th:if="${book.favorite}" class="marked nav-icon favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
+                    </div>
+                </div>
+                <div class="book-info">
+                    <h2 class="book-name" th:text="${book.name}">book name</h2>
+                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
+                </div>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="best-sellers">
+    <h1 class="best-seller-title">Хиты продаж</h1>
+    <div class="best-sellers-container">
+        <div class="book-card" th:each="book:${books}">
+            <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rating" th:text="${book.rating}">book rating</span>
+                    <div th:if="${person==null}">
+                        <img th:href="@{/auth/login}" class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                    </div>
+                    <div th:if="${person!=null}">
+                        <img th:if="${!book.favorite}" class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                        <img th:if="${book.favorite}" class="marked nav-icon favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
+                    </div>
+                </div>
+                <div class="book-info">
+                    <h2 class="book-name" th:text="${book.name}">book name</h2>
+                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
+                </div>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container1">
+    <div class="div1">
+        Скоро в продаже
+        <div class="watch-all">
+            Смотреть все
+            <div class="watch-all-button">→</div>
+        </div>
+    </div>
+    <div class="book-cards">
+        <div class="book-card" th:each="book:${books}">
+            <a th:href="@{/books/{bookId}(bookId=${book.bookId})}">
+                <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
+            </a>
+            <div class="book-card-container1">
+                <div class="book-card-container2">
+                    <img class="star" th:src="@{/static/images/star.svg}" alt="star">
+                    <span class="rating" th:text="${book.rating}">book rating</span>
+                    <div>
+                        <img th:if="${!book.favorite}" class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                        <img th:if="${book.favorite}" class="marked nav-icon favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
+                    </div>
+                </div>
+                <div class="book-info">
+                    <h2 class="book-name" th:text="${book.name}">book name</h2>
+                    <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
+                </div>
+                <div class="book-card-container3">
+                    <div class="add-to-cart-button">В корзину</div>
+                    <span class="book-price">575₽</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="div1">
+        Акции
+        <div class="watch-all">
+            Смотреть все
+            <div class="watch-all-button">→</div>
+        </div>
+    </div>
+    <div class="stocks-banner">
+        <img th:src="@{/static/images/stocksBanner.png}" alt="stocks">
+        <img th:src="@{/static/images/stocksBanner.png}" alt="stocks">
+        <img th:src="@{/static/images/stocksBanner.png}" alt="stocks">
+    </div>
+    <div class="div1">
+        Главные отзывы недели
+        <div class="watch-all">
+            Смотреть все
+            <div class="watch-all-button">→</div>
+        </div>
+    </div>
+    <div class="reviews">
+        <!--        //TODO узнать как делать слайдер-->
+    </div>
+    <div class="div1">
+        Подборки книг
+        <div class="watch-all">
+            Смотреть все
+            <div class="watch-all-button">→</div>
+        </div>
+    </div>
+    <div class="stocks-banner">
+        <img th:src="@{/static/images/bookBanner1.png}" alt="stocks">
+        <img th:src="@{/static/images/bookBanner2.png}" alt="stocks">
+        <img th:src="@{/static/images/bookBanner3.png}" alt="stocks">
+    </div>
+</div>
+<hr>
+<div class="container1">
+    <footer>
+        <img class="logo" th:src="@{/static/images/logo.svg}" alt="logotype">
+        <div class="footer-container">
+            <ul class="footer-ul">
+                <li>Каталог</li>
+                <li>Партнерская программа</li>
+                <li>Подробнее о нас</li>
+                <li>Контакты</li>
+            </ul>
+            <ul class="footer-ul">
+                <li>Остались вопросы? Напишите нам</li>
+                <li>korablik@yandex.ru</li>
+                <li>
+                    <div class="social-logos">
+                        <img th:src="@{/static/images/VKIcon.svg}" alt="VK">
+                        <img th:src="@{/static/images/OKIcon.svg}" alt="OK">
+                        <img th:src="@{/static/images/twitterIcon.svg}" alt="twitter">
+                    </div>
+                </li>
+                <li>
+                    Мы на связи с 9 до 18 часов
+                    <br>
+                    (GMT +03:00)
+                </li>
+            </ul>
+            <ul class="footer-ul">
+                <li>Бесплатный звонок по России</li>
+                <li>8 (988) 545-55-55</li>
+                <li>Мы в социальных сетях</li>
+                <li>
+                    <div class="social-logos">
+                        <img th:src="@{/static/images/VKIcon.svg}" alt="VK">
+                        <img th:src="@{/static/images/OKIcon.svg}" alt="OK">
+                        <img th:src="@{/static/images/twitterIcon.svg}" alt="twitter">
+                        <img th:src="@{/static/images/telegramIcon.svg}" alt="telegram">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<div class="overlay" id="overlay"></div>
+<script th:src="@{/static/scripts/script.js}"></script>
+<script th:src="@{/static/scripts/favoritesScript.js}"></script>
+</body>
+</html>

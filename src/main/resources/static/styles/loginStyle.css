@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Philosopher, serif;
+    color: rgb(17, 12, 31);
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+html{
+    height: 100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.title{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 51px;
+}
+
+input{
+    width: 300px;
+    height: 62px;
+    padding-left: 38px;
+    padding-right: 20px;
+    margin-bottom: 16px;
+    background-color: #e6e6e6;
+    border: 0;
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+input[type="submit"]{
+    width: 358px;
+    background-color: #290247FF;
+    color: white;
+    cursor: pointer;
+    transition-duration: 400ms;
+    transition-property: background-color;
+}
+
+input[type="submit"]:hover{
+    background-color: #58039a;
+    transition-duration: 400ms;
+}
+
+.error{
+    margin-bottom: 16px;
+    color: red;
+}
+
+.registration-info{
+    font-size: 15px;
+    color: black;
+}
+.registration-link{
+    font-size: 22px;
+    margin-left: 40px;
+}
+.registration-link:last-child{
+    color: #290247FF;
+    text-decoration: none;
+    transition-duration: 400ms;
+}
+.registration-link:last-child:hover{
+    color: #58039a;
+    text-decoration: none;
+    transition-duration: 400ms;
+}
