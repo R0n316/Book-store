@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface BooksRepository extends JpaRepository<Book,Integer> {
     Book findByNameAndAuthor (String name, String author);
+    Book findByImagePath(String imagePath);
 }

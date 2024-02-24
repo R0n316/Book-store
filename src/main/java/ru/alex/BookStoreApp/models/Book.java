@@ -69,10 +69,15 @@ public class Book {
     @Column(name = "is_favorite")
     private boolean isFavorite;
 
+    @Column(name = "is_in_cart")
+    private boolean isInCart;
+
+    @Column(name = "description")
+    private String description;
+
+
     @OneToMany(mappedBy = "book")
     private List<PersonBook> personBooks;
-
-    // TODO добавить атрибут описание книги и реализовать на странице с подробной информацией о книге динамическое подставление описания книги
 
     @Override
     public boolean equals(Object o) {

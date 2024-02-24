@@ -139,7 +139,7 @@
     margin-top: 21px;
 }
 
-.add-to-cart-button{
+.add-to-cart-button, .to-cart-div{
     width: 70px;
     height: 17px;
     padding: 8px 12px;
@@ -149,6 +149,11 @@
     font-weight: 700;
     color: white;
     margin-right: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
 }
 
 .book-price{
@@ -229,4 +234,16 @@ footer{
     display: flex;
     flex-direction: column;
     height: 50px;
+}
+
+.category{
+    cursor: pointer;
+    transition-duration: 400ms;
+}
+
+.category:hover{
+    color: white;
+    background-color:rgb(17, 12, 31);
+    transition-duration: 400ms;
+    transition-property: color,background-color;
 }

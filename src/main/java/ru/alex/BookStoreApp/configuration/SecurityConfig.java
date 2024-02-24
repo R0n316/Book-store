@@ -29,21 +29,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(req -> req.requestMatchers(HttpMethod.POST,"/books/save").permitAll());
-        http.authorizeHttpRequests(req -> req.requestMatchers(
-                HttpMethod.PATCH,
-                "/books/favoritesByNameAndAuthor",
-                "/books/favoritesByBookId").permitAll()
-        );
-        http.authorizeHttpRequests(req -> req.requestMatchers(
-                "/books/favoritesByNameAndAuthor",
-                "/books/favoritesByBookId").authenticated()
-        );
+        http.authorizeHttpRequests(req -> req.requestMatchers(HttpMethod.PATCH, "/books/api/**").permitAll());
+        http.authorizeHttpRequests(req -> req.requestMatchers("/books/favorites","/books/inCart").authenticated());
         http.authorizeHttpRequests(req -> req.anyRequest().permitAll());
-        http.csrf(a -> a.ignoringRequestMatchers(
-                "/books/save",
-                "/books/favoritesByNameAndAuthor",
-                "/books/favoritesByBookId")
-        );
+        http.csrf(a -> a.ignoringRequestMatchers("/books/api/**"));
         http.formLogin(form -> form.loginPage("/auth/login").permitAll().loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/books")
                 .failureUrl("/auth/login?error"));

@@ -26,16 +26,11 @@ public class BookService {
         return booksRepository.findAll();
     }
 
-    public void changeFavorites(Book book){
-        book.setFavorite(!book.isFavorite());
-        booksRepository.save(book);
-    }
-
-    public Book findByNameAndAuthor(String name, String author){
-        return booksRepository.findByNameAndAuthor(name,author);
-    }
 
     public Optional<Book> findById(int bookId){
         return booksRepository.findById(bookId);
+    }
+    public Book findByImagePath(String imagePath){
+        return booksRepository.findByImagePath(imagePath);
     }
 }

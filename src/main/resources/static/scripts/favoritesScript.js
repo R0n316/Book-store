@@ -1,13 +1,13 @@
 
 
-function sendBookDataToServer(bookName,author){
+function sendBookDataToAddInFavorites(imagePath){
     let xhr = new XMLHttpRequest();
     xhr.open('GET','http://localhost:8080/auth/auth-person',true);
     xhr.onload = () => {
         if(xhr.status>=200 && xhr.status<300){
             let data = JSON.parse(xhr.responseText);
             console.log(data);
-            fetch('/books/favoritesByNameAndAuthor?name=' + encodeURIComponent(bookName) + '&author=' + encodeURIComponent(author)
+            fetch('/books/api/toFavorites?imagePath='+encodeURIComponent(imagePath)
                 + '&personId=' + encodeURIComponent(data['personId']), {
                 method: 'PATCH',
                 headers: {
@@ -26,22 +26,20 @@ function sendBookDataToServer(bookName,author){
 let favoriteIcons = document.querySelectorAll('.favorites');
 favoriteIcons.forEach(favoriteIcon => {
     favoriteIcon.addEventListener('click', () => {
-        let bookName = favoriteIcon.closest('.book-card-container1').querySelector('.book-name').textContent;
-        let author = favoriteIcon.closest('.book-card-container1').querySelector('.book-author').textContent;
-        sendBookDataToServer(bookName, author);
+        let imagePath = favoriteIcon.closest('.book-card').querySelector('.book-image').src;
+        let lastSlashIndex = imagePath.lastIndexOf('/');
+        sendBookDataToAddInFavorites(imagePath.substring(lastSlashIndex + 1));
     });
 });
 
 
 favoriteIcons.forEach(icon => {
-    const bookName = icon.closest('.book-card-container1').querySelector('.book-name').textContent;
-    const author = icon.closest('.book-card-container1').querySelector('.book-author').textContent;
+    let imagePath = icon.closest('.book-card').querySelector('.book-image').src;
 
     icon.addEventListener('click', () => {
         favoriteIcons.forEach(favoriteIcon => {
-            const currentBookName = favoriteIcon.closest('.book-card-container1').querySelector('.book-name').textContent;
-            const currentAuthor = favoriteIcon.closest('.book-card-container1').querySelector('.book-author').textContent;
-            if(currentBookName===bookName&&currentAuthor===author){
+            let currentImagePath = favoriteIcon.closest('.book-card').querySelector('.book-image').src;
+            if(currentImagePath === imagePath){
                 if (favoriteIcon.classList.contains('marked')) {
                     favoriteIcon.classList.remove('marked');
                     favoriteIcon.src = "/static/images/favoritesIcon.svg";
@@ -53,5 +51,3 @@ favoriteIcons.forEach(icon => {
         })
     })
 })
-
-

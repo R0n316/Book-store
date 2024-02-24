@@ -32,8 +32,8 @@ public class PersonBook {
     @Column(name = "is_favorite")
     private boolean isFavorite;
 
-
-
+    @Column(name = "is_in_cart")
+    private boolean isInCart;
     @Getter
     @Setter
     @AllArgsConstructor

@@ -10,7 +10,7 @@ function sendBookDataToServer(){
         if(xhr.status>=200 && xhr.status<300){
             let data = JSON.parse(xhr.responseText);
             console.log(data);
-            fetch('/books/favoritesByBookId?personId='
+            fetch('/books/api/toFavoritesById?personId='
                 + encodeURIComponent(data['personId'])
                 + '&bookId='+encodeURIComponent(bookId), {
                 method: 'PATCH',

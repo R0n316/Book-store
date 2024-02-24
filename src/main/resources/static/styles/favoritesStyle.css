@@ -22,7 +22,6 @@
     margin-top: 32px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin-bottom: 100px;
 }
 .book-card{
@@ -30,6 +29,7 @@
     height: 136px;
     padding: 21px 9px;
     display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
     box-shadow: 1px 0 7px -5px;
 rgba(31, 26, 45, 0.22);
@@ -90,9 +90,13 @@ rgba(31, 26, 45, 0.22);
     border-radius: 5px;
     background: rgb(41, 2, 71);
     font-size: 15px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
     font-weight: 700;
     color: white;
     margin-right: 18px;
+    cursor: pointer;
 }
 
 .book-price{

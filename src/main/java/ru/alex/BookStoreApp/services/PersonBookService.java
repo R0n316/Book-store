@@ -24,34 +24,12 @@ public class PersonBookService {
         this.bookService = bookService;
     }
 
-//    public List<PersonBook> getBooksByPerson(Person person){
-//        return personBookRepository.getPersonBooksByPerson(person);
-//    }
-//
-//    public Optional<PersonBook> getPersonBookByBook(Book book){
-//        return personBookRepository.getPersonBooksByBook(book);
-//    }
-
     public Optional<PersonBook> findByPersonAndBook(Person person, Book book){
         return personBookRepository.findPersonBookByPersonAndBook(person,book);
     }
 
-
-    public void addBookToFavorite(int personId,String bookName, String author){
+    public void saveBookToFavorite(int personId, Book book) {
         Person person = peopleService.findByPersonId(personId);
-        Book book = bookService.findByNameAndAuthor(bookName,author);
-        saveFavoriteBook(person, book);
-    }
-
-    public void addBookToFavorite(int personId, int bookId){
-        Person person = peopleService.findByPersonId(personId);
-        Optional<Book> optionalBook = bookService.findById(bookId);
-        assert optionalBook.isPresent();
-        Book book = optionalBook.get();
-        saveFavoriteBook(person, book);
-    }
-
-    private void saveFavoriteBook(Person person, Book book) {
         Optional<PersonBook> personBook = personBookRepository.findPersonBookByPersonAndBook(person,book);
         if(personBook.isPresent()){
             changeFavorites(personBook.get());
@@ -63,7 +41,25 @@ public class PersonBookService {
                             person.getPersonId(),
                             book.getBookId()),
                     person,book,
-                    true)
+                    true,false)
+            );
+        }
+    }
+
+    public void saveBookToCart(int personId, Book book) {
+        Person person = peopleService.findByPersonId(personId);
+        Optional<PersonBook> personBook = personBookRepository.findPersonBookByPersonAndBook(person,book);
+        if(personBook.isPresent()){
+            changeToCart(personBook.get());
+            personBookRepository.save(personBook.get());
+        }
+        else{
+            personBookRepository.save(new PersonBook(
+                    new PersonBook.PersonBookId(
+                            person.getPersonId(),
+                            book.getBookId()),
+                    person,book,
+                    false,true)
             );
         }
     }
@@ -72,12 +68,25 @@ public class PersonBookService {
         personBook.setFavorite(!personBook.isFavorite());
     }
 
+    public void changeToCart(PersonBook personBook){
+        personBook.setInCart(!personBook.isInCart());
+    }
+
     public List<Book> getFavoriteBooksByPerson(Person person){
         return personBookRepository.findPersonBookByPerson(person)
                 .stream()
                 .filter(PersonBook::isFavorite)
                 .map(PersonBook::getBook)
                 .peek(book -> book.setFavorite(true))
+                .toList();
+    }
+
+    public List<Book> getInCartBooksByPerson(Person person){
+        return personBookRepository.findPersonBookByPerson(person)
+                .stream()
+                .filter(PersonBook::isInCart)
+                .map(PersonBook::getBook)
+                .peek(book -> book.setInCart(true))
                 .toList();
     }
 }
