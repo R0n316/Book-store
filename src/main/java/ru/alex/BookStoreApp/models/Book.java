@@ -75,6 +75,12 @@ public class Book {
     @Column(name = "description")
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "category", referencedColumnName = "name")
+    private Category category;
+
+    @Column(name = "book_language")
+    private String bookLanguage;
 
     @OneToMany(mappedBy = "book")
     private List<PersonBook> personBooks;
@@ -84,11 +90,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return bookId == book.bookId && yearOfPublishing == book.yearOfPublishing && numberOfPages == book.numberOfPages && circulation == book.circulation && weight == book.weight && ageRestrictions == book.ageRestrictions && price == book.price && Objects.equals(name, book.name) && Objects.equals(author, book.author) && Objects.equals(publisher, book.publisher) && Objects.equals(series, book.series) && Objects.equals(isbn, book.isbn) && Objects.equals(size, book.size) && Objects.equals(coverType, book.coverType) && Objects.equals(rating, book.rating);
+        return bookId == book.bookId && yearOfPublishing == book.yearOfPublishing && Objects.equals(name, book.name) && Objects.equals(author, book.author) && Objects.equals(isbn, book.isbn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookId, name, author, publisher, series, yearOfPublishing, isbn, numberOfPages, size, coverType, circulation, weight, ageRestrictions, rating, price);
+        return Objects.hash(bookId, name, author, yearOfPublishing, isbn);
     }
 }

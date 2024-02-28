@@ -33,18 +33,24 @@
         </div>
     </div>
     <form method="GET">
-        <label>
-            <input type="text" placeholder="Поиск" class="search">
-        </label>
+        <form method="GET" th:action="@{/books/found-books}">
+            <label>
+                <input type="text" placeholder="Поиск" class="search" name="name">
+            </label>
+        </form>
     </form>
-    <div class="nav-button">
-        <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites icon">
-        Избранное
-    </div>
-    <div class="nav-button">
-        <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="favorites icon">
-        Корзина
-    </div>
+    <a th:href="@{/books/favorites}">
+        <div class="nav-button">
+            <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites icon">
+            Избранное
+        </div>
+    </a>
+    <a th:href="@{/books/inCart}">
+        <div class="nav-button">
+            <img class="nav-icon" th:src="@{/static/images/cartIcon.svg}" alt="cart icon">
+            Корзина
+        </div>
+    </a>
     <a th:if="${person==null}" th:href="@{/auth/login}">
         <button class="login-button">Войти</button>
     </a>
@@ -56,6 +62,9 @@
 </header>
 <div class="container1" style="padding-top: 85px">
     <div class="categories">
+        <div class="category">
+            Все
+        </div>
         <div class="category">
             Фэнтези
         </div>
@@ -164,7 +173,7 @@
                 <button class="buy-button">Купить</button>
                 <div th:if="${person==null}">
                     <a th:href="@{/auth/login}">
-                        <img class="favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                        <img class="favorites-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
                     </a>
                 </div>
                 <div th:if="${person!=null}">

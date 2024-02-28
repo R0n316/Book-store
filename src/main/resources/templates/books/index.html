@@ -31,9 +31,9 @@
             <div>Товары для активного отдыха</div>
         </div>
     </div>
-    <form method="GET">
+    <form method="GET" th:action="@{/books/found-books}">
         <label>
-            <input type="text" placeholder="Поиск" class="search">
+            <input type="text" placeholder="Поиск" class="search" name="name">
         </label>
     </form>
     <a th:href="@{/books/favorites}">
@@ -59,39 +59,9 @@
 </header>
 <div class="container1" style="padding-top: 85px">
     <div class="categories">
-        <div class="category">
-            Фэнтези
-        </div>
-        <div class="category">
-            Детективы
-        </div>
-        <div class="category">
-            Боевики
-        </div>
-        <div class="category">
-            Проза
-        </div>
-        <div class="category">
-            Бизнес
-        </div>
-        <div class="category">
-            Эзотерика
-        </div>
-        <div class="category">
-            Психология
-        </div>
-        <div class="category">
-            Мода
-        </div>
-        <div class="category">
-            Кулинария
-        </div>
-        <div class="category">
-            Биография
-        </div>
-        <div class="category">
-            Хобби
-        </div>
+        <a th:each="category:${categories}" th:href="@{/books/category(category=__${category.name}__)}">
+            <div class="category" th:text="${category.name}">category name</div>
+        </a>
     </div>
     <div class="banner1">
         <h1 class="banner1-h1">
@@ -112,7 +82,7 @@
         </div>
     </div>
     <div class="book-cards">
-        <div class="book-card" th:each="book:${books}">
+        <div class="book-card" th:each="book:${highRatingBooks}">
             <a th:href="@{/books/{bookId}(bookId=${book.bookId})}">
                 <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
             </a>
@@ -153,7 +123,7 @@
 <div class="best-sellers">
     <h1 class="best-seller-title">Хиты продаж</h1>
     <div class="best-sellers-container">
-        <div class="book-card" th:each="book:${books}">
+        <div class="book-card" th:each="book:${popularBooks}">
             <a th:href="@{/books/{bookId}(bookId=${book.bookId})}">
                 <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
             </a>
@@ -200,7 +170,7 @@
         </div>
     </div>
     <div class="book-cards">
-        <div class="book-card" th:each="book:${books}">
+        <div class="book-card" th:each="book:${highRatingBooks}">
             <a th:href="@{/books/{bookId}(bookId=${book.bookId})}">
                 <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
             </a>

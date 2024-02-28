@@ -28,6 +28,8 @@ public class Person {
     @Column(name = "password")
     private String password;
 
+    // TODO добавить поле email для сброса пароля по почте
+
     @OneToMany(mappedBy = "person")
     private List<PersonBook> personBooks;
 

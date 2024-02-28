@@ -7,7 +7,7 @@
 }
 .container1{
     padding-left: 340px;
-    padding-right: 340px;
+    padding-right: 320px;
 }
 
 .div1{
@@ -29,6 +29,7 @@
     height: 136px;
     padding: 21px 9px;
     display: flex;
+    margin-right: 20px;
     justify-content: space-between;
     margin-bottom: 20px;
     box-shadow: 1px 0 7px -5px;
@@ -83,7 +84,7 @@ rgba(31, 26, 45, 0.22);
     margin-top: 21px;
 }
 
-.add-to-cart-button{
+.add-to-cart-button, .add-to-cart-div{
     width: 70px;
     height: 17px;
     padding: 8px 12px;
@@ -102,4 +103,123 @@ rgba(31, 26, 45, 0.22);
 .book-price{
     font-size: 24px;
     font-weight: 400;
+}
+
+.book-info{
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+}
+
+.main-div{
+    display: flex;
+}
+
+.filters{
+    display: flex;
+    flex-direction: column;
+    width: 295px;
+    margin-right: 20px;
+}
+
+.filters-text{
+    font-size: 14px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+.price-regulation{
+    width: 263px;
+    height: 17px;
+    border: 1px solid rgb(17, 12, 31);
+    border-radius: 3px;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/*TODO посмотреть, как сделать range slider*/
+
+.price-regulation-container{
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.price{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+.left-circle-regulator{
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+}
+
+.right-circle-regulator{
+    position: absolute;
+    bottom: 0;
+    right: 40%;
+}
+
+.filter-checkboxes{
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-checkboxes input{
+    width: 0;
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.filter-checkboxes input:focus + .custom-checkbox {
+    box-shadow: 0 0 0 1px #38577a, 0 0 10px #7e9bbd;
+}
+
+.filter-checkboxes label{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    user-select: none;
+}
+
+.custom-checkbox {
+    user-select: none;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid rgb(17, 12, 31);
+    border-radius: 2px;
+    margin-right: 12px;
+    vertical-align: sub;
+    position: relative;
+    cursor: pointer;
+}
+
+.custom-checkbox::before {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/checkboxRectangle.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform:  scale(0);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.filter-checkboxes input:checked + .custom-checkbox::before{
+    opacity: 1;
+    transform:  scale(1);
+}
+
+.more{
+    font-size: 12px;
 }

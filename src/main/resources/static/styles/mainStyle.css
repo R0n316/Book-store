@@ -29,6 +29,7 @@
     background-image: url("../images/banner1Background.svg");
     background-size: cover;
     background-position: center 22%;
+    margin-top: 24px;
 }
 
 .banner1-h1{
@@ -234,16 +235,4 @@ footer{
     display: flex;
     flex-direction: column;
     height: 50px;
-}
-
-.category{
-    cursor: pointer;
-    transition-duration: 400ms;
-}
-
-.category:hover{
-    color: white;
-    background-color:rgb(17, 12, 31);
-    transition-duration: 400ms;
-    transition-property: color,background-color;
 }

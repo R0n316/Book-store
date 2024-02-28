@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Книги добавленные в корзину</title>
+    <title>Найденные книги</title>
     <link rel="stylesheet" th:href="@{/static/styles/headerStyle.css}">
     <link rel="stylesheet" th:href="@{/static/styles/favoritesStyle.css}">
 </head>
@@ -56,26 +56,42 @@
 </header>
 <div class="container1" style="padding-top: 85px">
     <div class="div1">
-        Корзина
+        Найденные книги
     </div>
     <div class="book-cards">
-        <div class="book-card" th:each="book:${inCartBooks}">
+        <div class="book-card" th:each="book:${books}">
             <a th:href="@{/books/{bookId}(bookId=${book.bookId})}">
                 <img class="book-image" th:src="@{/static/images/bookImages/{image}(image=${book.imagePath})}" alt="book image">
             </a>
             <div class="book-card-container1">
                 <div class="book-card-container2">
                     <img class="star" th:src="@{/static/images/star.svg}" alt="star">
-                    <span class="rate" th:text="${book.rating}">book rate</span>
+                    <span class="rate" th:text="${book.rating}">book rating</span>
+                    <div th:if="${person==null}">
+                        <a th:href="@{/auth/login}">
+                            <img class="nav-icon" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                        </a>
+                    </div>
+                    <div th:if="${person!=null}">
+                        <img th:if="${!book.favorite}" class="nav-icon favorites" th:src="@{/static/images/favoritesIcon.svg}" alt="favorites">
+                        <img th:if="${book.favorite}" class="marked nav-icon favorites" th:src="@{/static/images/markedFavoritesIcon.svg}" alt="favorites">
+                    </div>
                 </div>
                 <div class="book-info">
                     <h2 class="book-name" th:text="${book.name}">book name</h2>
                     <h2 class="book-author" th:text="${book.author}">Алексей марков</h2>
                 </div>
                 <div class="book-card-container3">
-                    <div th:if="${!book.inCart}" class="add-to-cart-button">В корзину</div>
-                    <div th:if="${book.inCart}" class="add-to-cart-button in-cart">Удалить</div>
-                    <span class="book-price" th:text="${book.price} + '₽'">book price</span>
+                    <div th:if="${person==null}">
+                        <a th:href="@{/auth/login}">
+                            <div class="add-to-cart-button">В корзину</div>
+                        </a>
+                    </div>
+                    <div th:if="${person!=null}">
+                        <div th:if="${!book.inCart}" class="add-to-cart-button">В корзину</div>
+                        <div th:if="${book.inCart}" class="add-to-cart-button in-cart">Удалить</div>
+                    </div>
+                    <span class="book-price">575₽</span>
                 </div>
             </div>
         </div>
@@ -84,6 +100,7 @@
 <div class="overlay" id="overlay"></div>
 <script th:src="@{/static/scripts/mainScript.js}"></script>
 <script th:src="@{/static/scripts/script.js}"></script>
+<script th:src="@{/static/scripts/favoritesScript.js}"></script>
 <script th:src="@{/static/scripts/cartScript.js}"></script>
 </body>
 </html>

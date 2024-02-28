@@ -31,9 +31,9 @@
             <div>Товары для активного отдыха</div>
         </div>
     </div>
-    <form method="GET">
+    <form method="GET" th:action="@{/books/found-books}">
         <label>
-            <input type="text" placeholder="Поиск" class="search">
+            <input type="text" placeholder="Поиск" class="search" name="name">
         </label>
     </form>
     <a th:href="@{/books/favorites}">
