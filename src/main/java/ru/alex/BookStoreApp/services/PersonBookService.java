@@ -16,16 +16,18 @@ public class PersonBookService {
 
     private final PeopleService peopleService;
 
-    private final BookService bookService;
     @Autowired
-    public PersonBookService(PersonBookRepository personBookRepository, PeopleService peopleService, BookService bookService) {
+    public PersonBookService(PersonBookRepository personBookRepository, PeopleService peopleService) {
         this.personBookRepository = personBookRepository;
         this.peopleService = peopleService;
-        this.bookService = bookService;
     }
 
     public Optional<PersonBook> findByPersonAndBook(Person person, Book book){
         return personBookRepository.findPersonBookByPersonAndBook(person,book);
+    }
+
+    public List<PersonBook> findByPerson(Person person){
+        return personBookRepository.findByPerson(person);
     }
 
     public void saveBookToFavorite(int personId, Book book) {
@@ -73,18 +75,16 @@ public class PersonBookService {
     }
 
     public List<Book> getFavoriteBooksByPerson(Person person){
-        return personBookRepository.findPersonBookByPerson(person)
+        return personBookRepository.findByPersonWithBooksInFavorites(person)
                 .stream()
-                .filter(PersonBook::isFavorite)
                 .map(PersonBook::getBook)
                 .peek(book -> book.setFavorite(true))
                 .toList();
     }
 
     public List<Book> getInCartBooksByPerson(Person person){
-        return personBookRepository.findPersonBookByPerson(person)
+        return personBookRepository.findByPersonWithBooksInCart(person)
                 .stream()
-                .filter(PersonBook::isInCart)
                 .map(PersonBook::getBook)
                 .peek(book -> book.setInCart(true))
                 .toList();

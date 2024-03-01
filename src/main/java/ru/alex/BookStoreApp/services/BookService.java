@@ -23,8 +23,9 @@ public class BookService {
         booksRepository.save(book);
     }
 
+
     public List<Book> findAll(){
-        return booksRepository.findAll();
+        return booksRepository.getAllBooks();
     }
 
 
@@ -36,16 +37,16 @@ public class BookService {
     }
 
     public List<Book> findBooksContainingName(String name){
-        return booksRepository.findBooksByNameContaining(name);
+        return booksRepository.findBooksByNameContainingIgnoreCase(name);
     }
 
     public List<Book> getHighRatingBooks(){
-        return booksRepository.findAll().stream()
+        return findAll().stream()
                 .sorted(((o1, o2) -> o2.getRating().compareTo(o1.getRating()))).toList().subList(0,4);
     }
 
     public List<Book> getPopularBooks(){
-        return booksRepository.findAll().stream()
+        return findAll().stream()
                 .sorted((o1, o2) -> Integer.compare(o2.getCirculation(),o1.getCirculation())).toList().subList(0,4);
     }
 

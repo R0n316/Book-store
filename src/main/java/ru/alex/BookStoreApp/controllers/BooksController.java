@@ -14,6 +14,7 @@ import ru.alex.BookStoreApp.services.PersonBookService;
 import ru.alex.BookStoreApp.services.PersonDetailsService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/books")
@@ -101,10 +102,14 @@ public class BooksController {
 
     @GetMapping("/category")
     public String booksByCategory(@RequestParam("category") String category, Model model){
+        Person authenticatedPerson = personDetailsService.getAuthenticatedPerson();
         List<Book> books = bookService.findBooksByCategory(category);
-        model.addAttribute("books",bookService.findBooksByCategory(category));
+        if(authenticatedPerson!=null){
+            setBooksFavoriteAndInCart(books,authenticatedPerson);
+        }
+        model.addAttribute("books",books);
         model.addAttribute("category",category);
-        model.addAttribute("person",personDetailsService.getAuthenticatedPerson());
+        model.addAttribute("person", authenticatedPerson);
         model.addAttribute("categories",categoriesService.findAll());
         return "books/category";
     }
@@ -124,22 +129,20 @@ public class BooksController {
         return "books/bookList";
     }
 
-    private void setBooksFavoriteAndInCart(List<Book> books, Person authenticatedPerson){
-        if(authenticatedPerson!=null){
+    private void setBooksFavoriteAndInCart(List<Book> books, Person authenticatedPerson) {
+        if (authenticatedPerson != null) {
+            List<PersonBook> personBooks = personBookService.findByPerson(authenticatedPerson);
+
+            Map<Integer, PersonBook> personBookMap = personBooks.stream()
+                    .collect(Collectors.toMap(pb -> pb.getBook().getBookId(), pb -> pb));
+
             books.forEach(book -> {
-                Optional<PersonBook> currentBook = personBookService.findByPersonAndBook(authenticatedPerson,book);
-                if(currentBook.isPresent()){
-                    if(currentBook.get().isFavorite()){
-                        book.setFavorite(true);
-                    }
-                    if(currentBook.get().isInCart()){
-                        book.setInCart(true);
-                    }
+                PersonBook currentBook = personBookMap.get(book.getBookId());
+                if (currentBook != null) {
+                    book.setFavorite(currentBook.isFavorite());
+                    book.setInCart(currentBook.isInCart());
                 }
             });
         }
     }
 }
-
-
-// TODO решить проблему N+1
