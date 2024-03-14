@@ -2,7 +2,7 @@
 
 function sendBookDataToAddInFavorites(imagePath){
     let xhr = new XMLHttpRequest();
-    xhr.open('GET','http://localhost:8080/auth/auth-person',true);
+    xhr.open('GET','http://dpg-cnpjj2f109ks73eupq5g-a.oregon-postgres.render.com:8080/auth/auth-person',true);
     xhr.onload = () => {
         if(xhr.status>=200 && xhr.status<300){
             let data = JSON.parse(xhr.responseText);

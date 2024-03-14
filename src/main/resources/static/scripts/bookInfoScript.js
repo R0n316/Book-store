@@ -5,7 +5,7 @@ let bookId = url.substring(lastSlashIndex + 1);
 
 function sendBookDataToServer(){
     let xhr = new XMLHttpRequest();
-    xhr.open('GET','http://localhost:8080/auth/auth-person',false);
+    xhr.open('GET','http://dpg-cnpjj2f109ks73eupq5g-a.oregon-postgres.render.com:8080/auth/auth-person',false);
     xhr.onload = () => {
         if(xhr.status>=200 && xhr.status<300){
             let data = JSON.parse(xhr.responseText);
